@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Portfolio - Демо Сайтлар Галереяси</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000c1d;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Орқа фонд */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .background-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(4px) brightness(0.4);
+        }
+
+        .ocean-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 40, 80, 0.3) 0%, rgba(0, 10, 30, 0.7) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        /* Сетка созламалари */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d4ff;
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            color: #00d4ff;
+        }
+
+        .project-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        footer {
+            padding: 40px 0;
+            opacity: 0.6;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container">
+        <img src="fon.jpg" alt="Background">
+    </div>
+
+    <div class="ocean-overlay"></div>
+
+    <div class="container">
+        <header>
+            <h1>UNIVERSAL SHOWCASE</h1>
+            <p>Тайёр веб-сайтлар ва демо лойиҳалар тўплами</p>
+        </header>
+
+        <div class="projects-grid">
+            
+            <div class="project-card" onclick="window.open('projects/ticher/index.html', '_blank')">
+                <img src="ticher.jpg" alt="Ticher">
+                <div class="project-info">
+                    <h3>Устозлар</h3>
+                    <p>Ўқитувчи ва мураббийлар учун махсус портфолио тизими.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/turizm/index.html', '_blank')">
+                <img src="turizm2.jpg" alt="Turizm">
+                <div class="project-info">
+                    <h3>Туризм ва Саёҳат</h3>
+                    <p>Дубай, Туркия ва Европа бўйлаб саёҳатлар демоси.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/umra/index.html', '_blank')">
+                <img src="umra.jpg" alt="Umra">
+                <div class="project-info">
+                    <h3>Умра Зиёрати</h3>
+                    <p>Муборак сафарни ташкил қилиш хизматлари учун сайт.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/kafe/index.html', '_blank')">
+                <img src="kafe.jpg" alt="Kafe">
+                <div class="project-info">
+                    <h3>Кафе ва Ресторан</h3>
+                    <p>Таомлар менюси ва онлайн буюртма бериш тизими.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/zufunun/index.html', '_blank')">
+                <img src="tib.jpg" alt="Tib">
+                <div class="project-info">
+                    <h3>Халқ табобати</h3>
+                    <p>Халқ табобати олами ва шифобахш гиёҳлар.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/sauna/index.html', '_blank')">
+                <img src="un2.jpg" alt="Sauna">
+                <div class="project-info">
+                    <h3>Сауна хизматлари</h3>
+                    <p>Дам олиш масканлари учун махсус веб-саҳифа.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="window.open('projects/almashriq/index.html', '_blank')">
+                <img src="bankoboev.ru_karavan_s_turistami_po_morskomu_beregu.jpg" alt="Al-mashriq">
+                <div class="project-info">
+                    <h3>Al-Mashriq</h3>
+                    <p>Ошхоналар ва миллий таомлар учун махсус сайт.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            &copy; 2026 Universal Showcase. Барча ҳуқуқлар ҳимояланган.
+        </footer>
+    </div>
+
+</body>
+</html>
