@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Servis - Хизматлар Маркази</title>
+    <style>
+        /* Умумий услублар */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* Шапка (Header) */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo-area img {
+            border-radius: 50%;
+            border-color: gold;
+            border-style: groove;
+            box-shadow: 3px 5px 8px;
+            background-color: white;
+            padding: 5px;
+        }
+
+        /* Меню (Navigation) */
+        nav {
+            background-color: #34495e;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Асосий қисм */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #2c3e50;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #1abc9c;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-area">
+        <img src="01.jpg" alt="Logo" width="100" height="100">
+        <h1>UNIVERSAL SERVIS</h1>
+        <p>Сизнинг ишончли кўмакчингиз</p>
+    </div>
+</header>
+
+<nav>
+    <a href="#">Асосий</a>
+    <a href="#services">Хизматлар</a>
+    <a href="#">Умра зиёрати</a>
+    <a href="#">Биз ҳақимизда</a>
+    <a href="#">Алоқа</a>
+</nav>
+
+<div class="container" id="services">
+    <div class="service-card">
+        <h3>Paynet</h3>
+        <p>Барча турдаги тўловларни тезкор ва ишончли амалга ошириш.</p>
+    </div>
+
+    <div class="service-card">
+        <h3>Коммунал тўловлар</h3>
+        <p>Газ, свет, сув ва бошқа давлат хизматлари учун тўловлар.</p>
+    </div>
+
+    <div class="service-card">
+        <h3>Устахона</h3>
+        <p>Телефон ва оргтехникаларни таъмирлаш, дастурлаш (прошивка).</p>
+    </div>
+
+    <div class="service-card" style="border: 2px solid #f1c40f;">
+        <h3>Умра зиёрати</h3>
+        <p>Муборак сафарни биз билан ташкил қилинг. Қулай ва хавфсиз.</p>
+        <a href="#" class="btn-contact">Батафсил</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Universal Firma. Барча ҳуқуқлар ҳимояланган.
+</footer>
+
+</body>
+</html>

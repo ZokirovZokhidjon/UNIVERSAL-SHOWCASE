@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Design | Ишчи Кабинети</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #050505; color: #ffd700; display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; padding: 20px; }
+        
+        #loginBox { background: #111; padding: 30px; border: 2px solid #32cd32; border-radius: 15px; text-align: center; width: 320px; }
+        #loginBox h2 { margin-bottom: 20px; color: #fff; }
+        #loginBox input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #32cd32; color: #fff; border-radius: 5px; text-align: center; font-size: 18px; }
+        #loginBox button { width: 100%; padding: 12px; background: #32cd32; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; color: #000; }
+
+        #mainContent { display: none; width: 100%; max-width: 850px; }
+        .worker-card { background: #111; border: 2px solid #32cd32; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .header-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+        
+        .section-title { font-size: 14px; color: #32cd32; font-weight: bold; margin: 20px 0 10px; text-transform: uppercase; }
+        .input-group { display: flex; gap: 8px; margin-bottom: 15px; }
+        input { padding: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 5px; flex: 1; }
+        
+        button { padding: 8px 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-add { background: #32cd32; color: #000; }
+        .btn-pay { background: #f1c40f; color: #000; margin-right: 5px; }
+        .btn-edit { background: #3498db; color: #fff; margin-right: 5px; }
+        .btn-del { background: #e74c3c; color: #fff; }
+        .btn-logout { background: #e74c3c; color: #fff; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; color: #eee; font-size: 14px; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+        th { background: #222; color: #32cd32; }
+
+        .summary { margin-top: 20px; padding: 15px; background: #000; border-radius: 8px; display: flex; justify-content: space-around; font-size: 1.1rem; font-weight: bold; border: 1px solid #333; }
+        .export-btn { width: 100%; margin-top: 20px; background: #217346; color: #fff; padding: 15px; font-size: 16px; border-radius: 8px; }
+      a{
+        font-family: sans-serif;
+        font-size: 18px;
+        color: wheat;
+        text-align: center;
+        text-decoration: solid;
+    }
+    button:hover{
+        background-color: #217346;
+    }
+    </style>
+</head>
+<body>
+
+    <div id="loginBox">
+        <h2>Тизимга кириш</h2>
+        <input type="password" id="passInput" placeholder="Паролни киритинг...">
+        <button onclick="checkLogin()">КИРИШ</button><br>
+        <button style="background-color: #e74c3c;"> <a href="index.html">Асосий сахифага</a></button>
+        <p id="errorMsg" style="color: #e74c3c; margin-top: 10px; display: none;">Пароль хато!</p>
+    </div>
+
+    <div id="mainContent">
+        <div class="worker-card">
+            <div class="header-row">
+                <h1 id="activeWorkerName" style="color: #fff;"></h1>
+                <button class="btn-logout" onclick="location.reload()">ЧИҚИШ</button>
+            </div>
+
+            <div class="section-title">💵 КУНЛИК ТУШУМ</div>
+            <div class="input-group">
+                <input type="number" id="cashVal" placeholder="Сумма...">
+                <button class="btn-add" onclick="saveData('cash')">Қўшиш</button>
+            </div>
+            <table id="cashTable">
+                <thead><tr><th>Вақт</th><th>Сумма</th><th>Изоҳ</th><th>Амал</th></tr></thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="section-title">⚠️ ҚАРЗДОРЛАР</div>
+            <div class="input-group">
+                <input type="text" id="dName" placeholder="Мижоз исми...">
+                <input type="number" id="dSum" placeholder="Сумма...">
+                <button class="btn-add" style="background:#f1c40f" onclick="saveData('debt')">Ёзиш</button>
+            </div>
+            <table id="debtTable">
+                <thead><tr><th>Мижоз</th><th>Қарз суммаси</th><th>Амал</th></tr></thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="summary">
+                <span>Жами Тушум: <span id="totalC" style="color:#32cd32">0</span></span>
+                <span>Жами Қарз: <span id="totalD" style="color:#f1c40f">0</span></span>
+            </div>
+            
+            <button class="export-btn" onclick="exportAndClear()">📥 EXCELГА ЮКЛАШ ВА КУННИ ЯКУНЛАШ</button>
+        </div>
+    </div>
+
+<script>
+    let currentUser = "";
+
+    function checkLogin() {
+        const pass = document.getElementById('passInput').value;
+        if (pass === "1111") { currentUser = "alisher"; }
+        else if (pass === "2222") { currentUser = "botir"; }
+        else { document.getElementById('errorMsg').style.display = "block"; return; }
+
+        document.getElementById('loginBox').style.display = "none";
+        document.getElementById('mainContent').style.display = "block";
+        document.getElementById('activeWorkerName').innerText = currentUser.toUpperCase();
+        refreshUI();
+    }
+
+    function saveData(type, val = null, note = "") {
+        const cashKey = `cash_${currentUser}`;
+        const debtKey = `debt_${currentUser}`;
+
+        if (type === 'cash') {
+            const amount = val || parseFloat(document.getElementById('cashVal').value);
+            if (!amount) return;
+            let data = JSON.parse(localStorage.getItem(cashKey)) || [];
+            data.push({ 
+                amount: amount, 
+                time: new Date().toLocaleTimeString('uz-UZ', {hour:'2-digit', minute:'2-digit'}),
+                note: note 
+            });
+            localStorage.setItem(cashKey, JSON.stringify(data));
+            if(!val) document.getElementById('cashVal').value = '';
+        } else {
+            const name = document.getElementById('dName').value;
+            const sum = parseFloat(document.getElementById('dSum').value);
+            if (!name || !sum) return;
+            let data = JSON.parse(localStorage.getItem(debtKey)) || [];
+            data.push({ name: name, amount: sum });
+            localStorage.setItem(debtKey, JSON.stringify(data));
+            document.getElementById('dName').value = ''; 
+            document.getElementById('dSum').value = '';
+        }
+        refreshUI();
+    }
+
+    function refreshUI() {
+        const cashKey = `cash_${currentUser}`;
+        const debtKey = `debt_${currentUser}`;
+        const cashData = JSON.parse(localStorage.getItem(cashKey)) || [];
+        const debtData = JSON.parse(localStorage.getItem(debtKey)) || [];
+        
+        let tc = 0;
+        document.querySelector('#cashTable tbody').innerHTML = cashData.map((item, idx) => {
+            tc += item.amount;
+            return `<tr>
+                <td>${item.time}</td>
+                <td>${item.amount.toLocaleString()}</td>
+                <td style="font-size:11px; color:#aaa">${item.note || '-'}</td>
+                <td><button class="btn-del" onclick="deleteRow('cash', ${idx})">✕</button></td>
+            </tr>`;
+        }).join('');
+        document.getElementById('totalC').innerText = tc.toLocaleString();
+
+        let td = 0;
+        document.querySelector('#debtTable tbody').innerHTML = debtData.map((item, idx) => {
+            td += item.amount;
+            return `<tr>
+                <td>${item.name}</td>
+                <td>${item.amount.toLocaleString()}</td>
+                <td>
+                    <button class="btn-pay" onclick="payDebt(${idx})" title="Тўлов">💰</button>
+                    <button class="btn-edit" onclick="editRow(${idx})" title="Таҳрир">✎</button>
+                    <button class="btn-del" onclick="deleteRow('debt', ${idx})">✕</button>
+                </td>
+            </tr>`;
+        }).join('');
+        document.getElementById('totalD').innerText = td.toLocaleString();
+    }
+
+    function payDebt(idx) {
+        const debtKey = `debt_${currentUser}`;
+        let debtData = JSON.parse(localStorage.getItem(debtKey));
+        let client = debtData[idx];
+        
+        let paySum = prompt(`${client.name} қанча тўлади? (Жами қарз: ${client.amount})`, client.amount);
+        if (paySum === null || paySum === "") return;
+        
+        paySum = parseFloat(paySum);
+        if (paySum > 0 && paySum <= client.amount) {
+            saveData('cash', paySum, `Қарздан: ${client.name}`);
+            debtData[idx].amount -= paySum;
+            if (debtData[idx].amount === 0) debtData.splice(idx, 1);
+            localStorage.setItem(debtKey, JSON.stringify(debtData));
+            refreshUI();
+        } else {
+            alert("Нотўғри сумма киритилди!");
+        }
+    }
+
+    function editRow(idx) {
+        const debtKey = `debt_${currentUser}`;
+        let debtData = JSON.parse(localStorage.getItem(debtKey));
+        let newName = prompt("Мижоз исми:", debtData[idx].name);
+        let newSum = prompt("Қарз суммаси:", debtData[idx].amount);
+        
+        if (newName) debtData[idx].name = newName;
+        if (newSum) debtData[idx].amount = parseFloat(newSum);
+        
+        localStorage.setItem(debtKey, JSON.stringify(debtData));
+        refreshUI();
+    }
+
+    function deleteRow(type, idx) {
+        if (!confirm("Ўчирилсинми?")) return;
+        const key = `${type}_${currentUser}`;
+        let data = JSON.parse(localStorage.getItem(key));
+        data.splice(idx, 1);
+        localStorage.setItem(key, JSON.stringify(data));
+        refreshUI();
+    }
+
+    function exportAndClear() {
+        const cashKey = `cash_${currentUser}`;
+        const debtKey = `debt_${currentUser}`;
+        const cash = JSON.parse(localStorage.getItem(cashKey)) || [];
+        const debt = JSON.parse(localStorage.getItem(debtKey)) || [];
+        
+        if (cash.length === 0 && debt.length === 0) return alert("Сақлаш учун маълумот йўқ!");
+        if (!confirm("Excelга юклаб, кабинетни тозалаймизми?")) return;
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(cash), "Тушум");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(debt), "Қарзлар");
+        XLSX.writeFile(wb, `${currentUser}_hisobot_${new Date().toLocaleDateString()}.xlsx`);
+
+        localStorage.removeItem(cashKey);
+        localStorage.removeItem(debtKey);
+        refreshUI();
+    }
+</script>
+</body>
+</html>

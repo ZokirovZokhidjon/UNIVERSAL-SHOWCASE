@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотошоп хизматлари | Дизайн</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: #050505; color: #ffd700; overflow-x: hidden; }
+
+        /* HEADER */
+        header {
+            background: #000;
+            padding: 15px 0;
+            border-bottom: 2px solid #32cd32;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        nav ul li a { color: #fff; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 13px; transition: 0.3s; }
+        nav ul li a:hover { color: #32cd32; text-shadow: 0 0 10px #32cd32; }
+
+        /* --- ИХЧАМ КАРОУСЕЛЬ (СЛАЙДЕР) --- */
+        .carousel-section {
+            width: 100%;
+            height: 200px; /* Баландлик ўқувчи учун қулай қилиб кичирайтирилди */
+            overflow: hidden;
+            position: relative;
+            background: #111;
+            border-bottom: 1px solid #333;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 700%; /* 7 та слайд учун */
+            height: 100%;
+            animation: scrollCarousel 28s linear infinite;
+        }
+
+        .carousel-track:hover { animation-play-state: paused; }
+
+        .carousel-slide {
+            width: calc(100% / 7);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Расм тўлиқ кўринади, кесилмайди */
+            border-radius: 10px;
+            border: 2px solid #32cd32;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.2);
+        }
+
+        @keyframes scrollCarousel {
+            0% { transform: translateX(0); }
+            14% { transform: translateX(0); }
+            14.28% { transform: translateX(calc(-100% / 7)); }
+            28% { transform: translateX(calc(-100% / 7)); }
+            28.57% { transform: translateX(calc(-100% / 7 * 2)); }
+            42% { transform: translateX(calc(-100% / 7 * 2)); }
+            42.85% { transform: translateX(calc(-100% / 7 * 3)); }
+            57% { transform: translateX(calc(-100% / 7 * 3)); }
+            57.14% { transform: translateX(calc(-100% / 7 * 4)); }
+            71% { transform: translateX(calc(-100% / 7 * 4)); }
+            71.42% { transform: translateX(calc(-100% / 7 * 5)); }
+            85% { transform: translateX(calc(-100% / 7 * 5)); }
+            85.71% { transform: translateX(calc(-100% / 7 * 6)); }
+            99% { transform: translateX(calc(-100% / 7 * 6)); }
+            100% { transform: translateX(0); }
+        }
+
+        /* ГАЛЕРЕЯ КОНТЕЙНЕРИ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .section-title { text-align: center; margin-bottom: 10px; font-size: 2.2rem; color: #fff; }
+        .hint { text-align: center; color: #888; margin-bottom: 40px; font-style: italic; font-size: 0.9rem; }
+
+        /* ГРИД СИСТЕМАСИ */
+        .ps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .ps-card {
+            background: #151515;
+            border: 1px solid #222;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .ps-card:hover {
+            transform: translateY(-10px);
+            border-color: #32cd32;
+            box-shadow: 0 10px 20px rgba(50, 205, 50, 0.1);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: #000;
+        }
+
+        .img-before, .img-after {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: 0.6s ease-in-out;
+        }
+
+        .img-after { opacity: 0; }
+        .ps-card:hover .img-after { opacity: 1; }
+
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h3 { color: #32cd32; font-size: 1.1rem; margin-bottom: 10px; }
+        .card-info p { color: #ccc; font-size: 0.85rem; line-height: 1.4; }
+
+        /* МОБИЛ МОСЛАШУВ */
+        @media (max-width: 768px) {
+            .carousel-section { height: 150px; }
+            .section-title { font-size: 1.6rem; }
+            .ps-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+ 
+
+    <header>
+        <nav>
+            <ul>
+              <li><a href="index.html">Асосий сахифаси</a></li>
+                <li><a href="otk.html">Бизнинг махсулотлар</a></li>
+                <li><a href="photo.html">Галерея</a></li>
+                 <li><a href="contact.html">Алоқа</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="carousel-section">
+        <div class="carousel-track">
+            <div class="carousel-slide"><img src="asbur1.jpg" alt="Slide 1"></div>
+            <div class="carousel-slide"><img src="asbur2.jpg" alt="Slide 2"></div>
+            <div class="carousel-slide"><img src="asbur3.jpg" alt="Slide 3"></div>
+            <div class="carousel-slide"><img src="asbur4.jpg" alt="Slide 4"></div>
+            <div class="carousel-slide"><img src="asbur5.jpg" alt="Slide 5"></div>
+            <div class="carousel-slide"><img src="asbur6.jpg" alt="Slide 6"></div>
+            <div class="carousel-slide"><img src="asbur7.jpg" alt="Slide 7"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="section-title">"As burger" ШИРИНЛИКЛАРИдан намуналар  </h1>
+        <p class="hint">Расм устига босинг ёки сичқончани олиб келинг — натижани кўрасиз.</p>
+
+        <div class="ps-grid">
+            
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur1.jpg" alt="Before" class="img-before">
+                    <img src="asbur2.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur3.jpg" alt="Before" class="img-before">
+                    <img src="asbur4.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                   <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur5.jpg" alt="Before" class="img-before">
+                    <img src="asbur6.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                 <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur7.jpg" alt="Before" class="img-before">
+                    <img src="asbur8.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                  <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur9.jpg" alt="Before" class="img-before">
+                    <img src="asbur10.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur11.jpg" alt="Before" class="img-before">
+                    <img src="asbur12.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur13.jpg" alt="Before" class="img-before">
+                    <img src="asbur14.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur15.jpg" alt="Before" class="img-before">
+                    <img src="asbur16.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>As burger</h3>
+                    <p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur17.jpg" alt="Before" class="img-before">
+                    <img src="asbur19.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+                    <h3>Ҳужжат учун тайёрлаш</h3>
+                    <p>Расмларни расмий ҳужжатлар стандартларига мослаш.</p>
+                </div>
+            </div>
+
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur20.jpg" alt="Before" class="img-before">
+                    <img src="asbur21.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+ <h3>As burger</h3>
+<p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+               </div>
+            </div>
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur22.jpg" alt="Before" class="img-before">
+                    <img src="asbur23.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+ <h3>As burger</h3>
+<p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+               </div>
+            </div>
+            <div class="ps-card">
+                <div class="image-container">
+                    <img src="asbur24.jpg" alt="Before" class="img-before">
+                    <img src="asbur25.jpg" alt="After" class="img-after">
+                </div>
+                <div class="card-info">
+ <h3>As burger</h3>
+<p>Ушбу тортга буюртма бериш учун тепадаги менюдаги 👆👆👆👆"Алока" тугмасини босинг</p>
+               </div>
+            </div>
+            
+        </div>
+        
+
+        
+    </div>
+
+</body>
+</html>
