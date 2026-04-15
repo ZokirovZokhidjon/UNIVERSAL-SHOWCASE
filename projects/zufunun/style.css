@@ -1,0 +1,225 @@
+/* style.css файли */
+
+/* 1. Асосий созламалар (Браузер стандартларини ўчириш) */
+* {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    box-sizing: border-box; /* Элементлар ўлчамини тўғри ҳисоблаш учун */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Тиниқ шрифт */
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9fbfd; /* Оч ҳаворанг фон */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease; /* Силлиқ ўтиш эффект */
+}
+
+ul {
+    list-style: none;
+}
+
+/* 2. Контейнер (Матнни ўртага олиш) */
+.container {
+    max-width: 1200px; /* Сайт кенглигини чегаралаш */
+    margin: 0 auto; /* Ўртага олиш */
+    padding: 0 15px; /* Икки ёнидан кичик масофа */
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. Юқори қисм (Header) */
+.main-header {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Енгил соя */
+}
+
+.top-bar {
+    background-color: #1a5c8e; /* Тўқ кўк ранг */
+    color: white;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.top-bar .flex-between {
+    flex-wrap: wrap; /* Мобил версияда сиғиши учун */
+    gap: 10px;
+}
+
+.contact-info span {
+    margin-right: 20px;
+}
+
+.social-links a {
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.social-links a:hover {
+    color: #a8d5ff; /* Сичқонча борганда оч кўк ранг */
+}
+
+/* Навигация (Меню) */
+.main-nav {
+    padding: 15px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    max-height: 50px; /* Логотип баландлигини чегаралаш */
+    width: auto;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a5c8e; /* Тўқ кўк ранг */
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    color: #555;
+    padding: 5px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #2e8a45; /* Миллий яшил ранг */
+    border-bottom: 2px solid #2e8a45;
+}
+
+/* Навбатга ёзилиш тугмаси */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #2e8a45; /* Яшил */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #246e36;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #1a5c8e;
+    border: 2px solid #1a5c8e;
+}
+
+.btn-secondary:hover {
+    background-color: #f1f7fc;
+}
+
+/* 4. Асосий мазмун (Hero Section) */
+.hero-section {
+    padding: 60px 0;
+    background-color: #ecf3f9; /* Оч ҳаворанг фон */
+}
+
+.hero-section .flex-center {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 36px;
+    color: #1a5c8e;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-main-img {
+    max-width: 100%; /* Расм кенглигини контейнер ичида сиғдириш */
+    height: auto;
+    max-height: 350px; /* Расм жуда баланд бўлмаслиги учун */
+    object-fit: contain; /* Расмни пропорциясини сақлаган ҳолда сиғдириш */
+    border-radius: 10px; /* Юмшоқ бурчаклар */
+    /* background-color: white; /* Агар расм фони шаффоф бўлмаса ўчиринг */
+    /* padding: 10px; /* background-color ёқилган бўлса ишлатинг */
+}
+
+/* 5. Умумий стиллар */
+.text-center {
+    text-center: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.bg-light {
+    background-color: #f1f7fc;
+}
+
+.bg-dark {
+    background-color: #212529;
+    color: white;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Расмга алоҳида эътибор (секциялар ичида) */
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
