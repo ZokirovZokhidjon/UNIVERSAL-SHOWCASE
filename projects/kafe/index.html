@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Design | Наманган Ширинликлари</title>
+    <style>
+        /* АСОСИЙ СТИЛЛАР */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ------ ЯНГИЛАНГАН: ОРҚА ФОН (Расм манзили тўғриланди ва хиралик камайтирилди) ------ */
+        .background-blur {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            /* linear-gradient: расмни хиралаштириш ва қорайтириш даражаси (rgba(0,0,0,0.5)) камайтирилди. */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://cmyk-studio.ru/images/2024/outer.jpg?1'); /* Сиз берган расм манзили */
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px); /* Хиралик даражаси минимал (1px) */
+            z-index: -1;
+            transform: scale(1.1); /* Бурчакларни беркитиш учун */
+        }
+        /* ---------------------------------- */
+
+        /* ТЕПА МЕНЮ (ОҚ РАНГ) */
+        header {
+            background: #ffffff; /* Меню оқ ранг */
+            padding: 15px 0;
+            border-bottom: 2px solid #f1c40f;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        nav ul li a {
+            color: #333; /* Меню ёзуви тўқ ранг */
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { 
+            color: #f1c40f; 
+        }
+
+        /* МАРКАЗИЙ КОНТЕЙНЕР */
+        .stage {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* Элементларни устун шаклида жойлаштириш */
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-top: 60px; /* Тепа ёзув учун жой ажратиш */
+        }
+
+        /* ------ ТЕПАДАГИ КАТТА ТИЛЛА РАНГЛИ ЁЗУВ (Кўриниши яхшиланди) ------ */
+        .top-title {
+            text-align: center;
+            margin-bottom: 20px; /* Юракча билан оралиқ камайтирилди */
+            position: relative;
+            z-index: 100;
+        }
+
+        .top-title h2 {
+            font-family: 'Georgia', serif; /* Тилла шрифт стили */
+            font-size: 56px; /* Катта ҳажм */
+            color: transparent; /* Ранг transparent бўлади, чунки биз градиент ишлатамиз */
+            background-image: linear-gradient(to bottom, #ffd700, #ff8c00); /* Тилла градиент */
+            -webkit-background-clip: text; /* Текстга боғлаш */
+            background-clip: text;
+            text-shadow: 2px 2px 15px rgba(255, 215, 0, 0.7); /* Тилла нур сочишни кучайтириш */
+            letter-spacing: 2px;
+            line-height: 1; /* Тагма-таг тушмаслиги учун */
+        }
+        /* ------------------------------------------------------------ */
+
+        /* ------ ЮРАКЧА ВА УНИНГ ИЧИДАГИ МАТН (Мукаммаллаштирилди) ------ */
+        .heart-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: heart-beat 1.5s infinite ease-in-out;
+            transform-origin: center; 
+            margin-top: -20px; /* Бироз тепароқ кўтариш */
+        }
+
+        .heart-shape {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background-color: #ff0000;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 50px #ff0000;
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background-color: #ff0000;
+            border-radius: 50%;
+        }
+
+        .heart-shape::before { top: -90px; left: 0; }
+        .heart-shape::after { top: 0; left: 90px; }
+
+        .heart-text {
+            position: relative;
+            z-index: 110;
+            color: #ffffff; /* Матн оқ ранг */
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1); /* Матн соясини кучайтириш (қора фонда ҳам кўринади) */
+            pointer-events: none;
+        }
+
+        .heart-text span {
+            display: block;
+            font-size: 18px; /* Катталиги */
+            margin-bottom: 2px; /* Таг ёзув билан оралиқ */
+        }
+
+        .heart-text b {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        /* ЮРАК УРИШИ ВА НУР СОЧИШИ */
+        @keyframes heart-beat {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px #ff0000); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 40px #ff5555); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px #ff0000); }
+        }
+
+        /* РАНГЛИ НУҚТАЛАР (УЧҚУНЛАР) */
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particle-fly 3s infinite ease-out;
+        }
+
+        @keyframes particle-fly {
+            0% { transform: scale(0.3); opacity: 0; }
+            20% { opacity: 1; transform: scale(1); }
+            100% { 
+                transform: scale(1.5) translate(var(--tx), var(--ty)); 
+                opacity: 0; 
+            }
+        }
+
+        /* МОБИЛ МОСЛАШУВ */
+        @media (max-width: 600px) {
+            nav ul { gap: 10px; padding: 0 10px; }
+            nav ul li a { font-size: 10px; }
+            .top-title h2 { font-size: 32px; } /* Мобилда кичикроқ */
+            .heart-shape, .heart-shape::before, .heart-shape::after { width: 140px; height: 140px; }
+            .heart-shape::before { top: -70px; }
+            .heart-shape::after { left: 70px; }
+            .heart-text span { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-blur"></div>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Асосий саҳифа</a></li>
+                <li><a href="otk.html">Маҳсулотлар</a></li>
+                <li><a href="photo.html">Галерея</a></li>
+                <li><a href="contact.html">Алоқа</a></li>
+                <li><a href="cabinet1.html">Кабинет</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="stage" id="stage">
+        <div class="top-title">
+       
+        </div>
+        
+        <div class="heart-wrapper">
+            <div class="heart-shape"></div>
+            <div class="heart-text">
+                <span>"As burger"</span> <b>ШИРИНЛИКЛАРИ</b>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const stage = document.getElementById('stage');
+    const colors = ['#ff3e3e', '#ff0000', '#ff6b6b', '#ffd700', '#ffffff'];
+
+    function createDots() {
+        for (let i = 0; i < 50; i++) {
+            let dot = document.createElement('div');
+            dot.className = 'dot';
+            
+            let angle = (i / 50) * Math.PI * 2;
+            let radius = 100; 
+            
+            let x = Math.cos(angle) * radius;
+            let y = Math.sin(angle) * radius;
+            
+            // Учқунларнинг учиш йўналиши
+            let tx = Math.cos(angle) * (200 + Math.random() * 100) + 'px';
+            let ty = Math.sin(angle) * (200 + Math.random() * 100) + 'px';
+            
+            dot.style.left = `calc(50% + ${x}px)`;
+            dot.style.top = `calc(50% + ${y}px)`;
+            dot.style.setProperty('--tx', tx);
+            dot.style.setProperty('--ty', ty);
+            
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            dot.style.backgroundColor = color;
+            dot.style.boxShadow = `0 0 10px ${color}`;
+            dot.style.animationDelay = `${Math.random() * 3}s`;
+            
+            stage.appendChild(dot);
+        }
+    }
+
+    createDots();
+</script>
+
+</body>
+</html> 
