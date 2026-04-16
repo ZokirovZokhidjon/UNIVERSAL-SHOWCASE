@@ -1,0 +1,105 @@
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    background-image: url(https://wallpapers.com/images/featured/1080p-hd-38dnp6r4fys5v836.jpg);
+    background-size: cover;
+} 
+.fif{
+ background-image: url(https://images.stockcake.com/public/a/d/9/ad953d8f-0baa-45d2-8be1-219b85a1b6aa_large/doctors-discussing-data-stockcake.jpg);
+ background-size: cover;
+    height: 250px;
+    display: flex;
+    justify-content: right;
+    gap: 55px;
+ 
+    border-style: groove;
+    border-color:black;
+    height: 355px;
+    box-shadow: 3px 5px 8px;
+
+}
+.fif img{
+    border-radius: 150px;
+    margin-top: 20px;
+ 
+}
+.fif a{
+    margin-right: 25px;
+    margin-top: 20px;
+    text-decoration: solid;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+
+}
+.fif a:hover{
+    color: white;
+}
+.set{
+    width: 500px;
+    border-style: groove;
+    display: flow-root; 
+    margin-top: 25px;
+    margin-left: 25px;
+}
+.set2{
+    width: 500px;
+    border-style: groove;
+    display: flow-root; 
+    margin-top: 25px;
+    margin-left: 25px;
+}
+.set3{
+    width: 500px;
+    border-style: groove;
+    display: flow-root; 
+    margin-top: 25px;
+    margin-left: 25px;
+}
+section2{
+    display: flow-root;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.setup1{
+
+    margin-top: 25px;
+    margin-left: 55px;
+     }
+     .setup1 p{
+        margin-top: 25px;
+     }
+     span{
+        margin-top: 25px;
+     }
+.setup2{
+     margin-top: 25px;
+    margin-left: 55px;
+}
+.setup3{
+     margin-top: 25px;
+    margin-left: 55px;
+
+}
+.old{
+    display: flow-root; 
+    margin-top: 25px;
+    margin-left: 25px;
+
+}
+.old img{
+    margin-top: 25px;
+    border-radius: 150px;
+}
+.pax{
+    display: flow-root; 
+    margin-top: 25px;
+    margin-left: 55px;
+}
+.pax img{
+      border:150px;
+
+}

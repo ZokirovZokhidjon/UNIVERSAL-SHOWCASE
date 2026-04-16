@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="01.jpg" type="image/x-icon">
+    <title>Открыткалар каталоги | Media Design</title>
+    <style>
+        /* УМУМИЙ СТИЛЛАР */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
+        body { background-color: #080808; color: #ffd700; }
+
+        /* ------ ЯНГИЛАНГАН: ОҚ ТЕПА МЕНЮ ------ */
+        header {
+            background: #ffffff; /* Фон оқ ранг */
+            padding: 15px 0;
+            border-bottom: 2px solid #32cd32;
+            text-align: center;
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Меню ажралиб туриши учун кичик соя */
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 25px; align-items: center; }
+        
+        /* Менюдаги ёзувлар стили */
+        nav ul li a { 
+            color: #333; /* Матн тўқ кулранг (қорага яқин) */
+            text-decoration: none; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            font-size: 13px; 
+            transition: 0.3s;
+        }
+
+        /* Сичқонча устига келганда */
+        nav ul li a:hover { 
+            color: #32cd32; /* Яшил рангга ўзгаради */
+        }
+        /* -------------------------------------- */
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        .page-title { text-align: center; margin-bottom: 30px; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 3px; color: #fff; }
+
+        /* КАТЕГОРИЯ ФИЛЬТРИ */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #32cd32;
+            color: #32cd32;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #32cd32;
+            color: #000;
+        }
+
+        /* ОТКРЫТКА КАРТОЧКАЛАРИ */
+        .otkr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .otkr-card {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .otkr-card:hover {
+            transform: scale(1.03);
+            border-color: #32cd32;
+            box-shadow: 0 0 20px rgba(50, 205, 50, 0.2);
+        }
+
+        .otkr-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .otkr-info {
+            padding: 15px;
+            text-align: center;
+            background: linear-gradient(to top, #000, transparent);
+        }
+
+        .otkr-name { font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
+        .otkr-type { font-size: 0.8rem; color: #32cd32; text-transform: uppercase; margin-bottom: 10px; }
+
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #ffd700;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 0 0 12px 12px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .order-btn:hover { background: #32cd32; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Асосий сахифа</a></li>
+               
+                <li><a href="otk.html">Бизнинг маҳсулотлар</a></li>
+                <li><a href="photo.html">Галерея</a></li>
+                <li><a href="contact.html">Алоқа</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Бизнинг маҳсулотлар</h1>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active">Ҳаммаси</button>
+            <button class="filter-btn">Туғилган кун</button>
+            <button class="filter-btn">Тўй учун</button>
+            <button class="filter-btn">Байрамлар</button>
+            <button class="filter-btn">Махсус дизайн</button>
+        </div>
+
+        <div class="otkr-grid">
+            
+            <div class="otkr-card">
+                <img src="asbur2.jpg" alt="Birthday" class="otkr-img">
+                <div class="otkr-info">
+                    <div class="otkr-name">Олтин Табрикнома</div>
+                    <div class="otkr-type">Туғилган кун</div>
+                </div>
+                <a href="contact.html" class="order-btn">БУЮРТМА БЕРИШ</a>
+            </div>
+
+            <div class="otkr-card">
+                <img src="asbur9.jpg" alt="Wedding" class="otkr-img">
+                <div class="otkr-info">
+                    <div class="otkr-name">Бахт Трамвайи</div>
+                    <div class="otkr-type">Тўй учун</div>
+                </div>
+                <a href="contact.html" class="order-btn">БУЮРТМА БЕРИШ</a>
+            </div>
+
+            <div class="otkr-card">
+                <img src="asbur1.jpg" alt="Holiday" class="otkr-img">
+                <div class="otkr-info">
+                    <div class="otkr-name">Баҳор Нафаси</div>
+                    <div class="otkr-type">Байрамлар</div>
+                </div>
+                <a href="contact.html" class="order-btn">БУЮРТМА БЕРИШ</a>
+            </div>
+
+            <div class="otkr-card">
+                <img src="asbur16.jpg" alt="Custom" class="otkr-img">
+                <div class="otkr-info">
+                    <div class="otkr-name">Индивидуал Дизайн</div>
+                    <div class="otkr-type">Махсус</div>
+                </div>
+                <a href="contact.html" class="order-btn">БУЮРТМА БЕРИШ</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

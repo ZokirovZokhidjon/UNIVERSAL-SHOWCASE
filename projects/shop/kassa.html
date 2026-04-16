@@ -1,0 +1,198 @@
+ <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qulay Bozor - Ultimate Panel</title>
+    <style>
+        :root { 
+            --dark: #1e2126; --blue: #3498db; --red: #e74c3c; 
+            --green: #2ecc71; --bg: #f4f7f6; --gray: #7f8c8d;
+        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; flex-direction: column; height: 100vh; }
+
+        header { 
+            background: var(--dark); color: white; padding: 12px 25px; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .stats-top { display: flex; gap: 20px; }
+        .stat-item { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 5px; font-size: 14px; }
+
+        .wrapper { display: grid; grid-template-columns: 320px 1fr; flex-grow: 1; overflow: hidden; }
+
+        .sidebar { background: white; border-right: 1px solid #ddd; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+        .nav-grid button { 
+            padding: 12px 5px; border: none; border-radius: 6px; 
+            font-size: 12px; font-weight: bold; cursor: pointer; background: #ecf0f1; transition: 0.3s;
+        }
+        .nav-grid button.active { background: var(--blue); color: white; }
+
+        .scan-btn { 
+            background: #34495e; color: white; border: none; padding: 15px; 
+            border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px;
+        }
+
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 10px; box-sizing: border-box;}
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+
+        .content { padding: 25px; overflow-y: auto; }
+        .table-card { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--gray); font-size: 13px; border-bottom: 2px solid #f4f4f4; padding: 12px; }
+        td { padding: 15px 12px; border-bottom: 1px solid #f9f9f9; }
+
+        .btn-pay { background: var(--green); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .btn-del { color: var(--red); cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 18px; }
+        
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .badge-client { background: #d4edda; color: #155724; }
+        .badge-shop { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-weight: bold; font-size: 18px;">QULAY BOZOR | <span id="user-display" style="color: var(--green);">KASSIR</span></div>
+    <div class="stats-top">
+        <div class="stat-item">Савдо: <b id="total-sales-top">0 сум</b></div>
+        <div class="stat-item">Қарз: <b id="total-debt-top" style="color: var(--red);">0 сум</b></div>
+    </div>
+    <a href="index.html" style="color: white; text-decoration: none; font-size: 12px; opacity: 0.7;">ЧИҚИШ</a>
+</header>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="nav-grid">
+            <button onclick="switchTab(this, 'KACCA')">КАССА</button>
+            <button onclick="switchTab(this, 'ОМБОР')">ОМБОР</button>
+            <button class="active" onclick="switchTab(this, 'ҚАРЗЛАР')">ҚАРЗЛАР</button>
+            <button onclick="switchTab(this, 'ДУКОН')">ДЎКОН ҚАРЗИ</button>
+        </div>
+
+        <button class="scan-btn" onclick="startScanner()">📷 СКАНЕРНИ ЁҚИШ</button>
+
+        <input type="text" id="input-name" placeholder="Исм / Маҳсулот / Дўкон">
+        <input type="number" id="input-summa" placeholder="Сумма">
+        <select id="input-type">
+            <option value="Мижоз">Мижоз қарзи (Бизга)</option>
+            <option value="Дўкон">Дўкон қарзи (Бизга эмас)</option>
+        </select>
+        
+        <button class="btn-action" style="background: var(--red);" onclick="saveToTable()">ҚАРЗНИ САҚЛАШ</button>
+    </div>
+
+    <div class="content">
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Исм / Вақт</th>
+                        <th>Сумма</th>
+                        <th style="text-align: right;">Амал</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Кассир номини созлаш
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('user-display').innerText = params.get('user') || 'КАССИР';
+
+    let totalDebt = 0;
+
+    // 2. Тугмаларни алмаштириш функцияси
+    function switchTab(btn, tabName) {
+        // Ҳамма тугмалардан 'active' классини олиб ташлаш
+        document.querySelectorAll('.nav-grid button').forEach(b => b.classList.remove('active'));
+        // Босилган тугмага 'active' қўшиш
+        btn.classList.add('active');
+        console.log(tabName + " бўлимига ўтилди");
+    }
+
+    // 3. Сканерни ёқиш (симуляция)
+    function startScanner() {
+        alert("Сканер камераси очилмоқда... Илтимос, штрих-кодни кўрсатинг.");
+    }
+
+    // 4. Жадвалга маълумот сақлаш
+    function saveToTable() {
+        const name = document.getElementById('input-name').value;
+        const summa = document.getElementById('input-summa').value;
+        const type = document.getElementById('input-type').value;
+        const time = new Date().toLocaleString('uz-UZ', {hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit'});
+
+        if (!name || !summa) {
+            alert("Илтимос, ҳамма майдонларни тўлдиринг!");
+            return;
+        }
+
+        const badgeClass = (type === "Мижоз") ? "badge-client" : "badge-shop";
+        const rowId = "row-" + Date.now();
+
+        const newRow = `
+            <tr id="${rowId}">
+                <td>
+                    <div style="font-size: 11px; color: var(--gray);">${time}</div>
+                    <b>${name}</b> <span class="badge ${badgeClass}">${type}</span>
+                </td>
+                <td class="row-summa" style="color: var(--red); font-weight: bold;">${Number(summa).toLocaleString()}</td>
+                <td align="right">
+                    <button class="btn-pay" onclick="payDebt('${rowId}')">Тўлов</button>
+                    <span class="btn-del" onclick="deleteRow('${rowId}')">×</span>
+                </td>
+            </tr>
+        `;
+
+        document.getElementById('list').innerHTML = newRow + document.getElementById('list').innerHTML;
+        updateTotal(Number(summa));
+
+        // Формани тозалаш
+        document.getElementById('input-name').value = "";
+        document.getElementById('input-summa').value = "";
+    }
+
+    // 5. Тўлов қилиш функцияси
+    function payDebt(id) {
+        const row = document.getElementById(id);
+        const currentSumText = row.querySelector('.row-summa').innerText.replace(/\s/g, '');
+        let currentSum = Number(currentSumText);
+
+        let payAmount = prompt("Қанча тўланди?", currentSum);
+        
+        if (payAmount !== null && payAmount !== "") {
+            let left = currentSum - Number(payAmount);
+            if (left <= 0) {
+                deleteRow(id);
+            } else {
+                row.querySelector('.row-summa').innerText = left.toLocaleString();
+                updateTotal(-Number(payAmount));
+            }
+        }
+    }
+
+    // 6. Ўчириш функцияси
+    function deleteRow(id) {
+        const row = document.getElementById(id);
+        const sumText = row.querySelector('.row-summa').innerText.replace(/\s/g, '');
+        if (confirm("Ростан ҳам ўчирмоқчимисиз?")) {
+            updateTotal(-Number(sumText));
+            row.remove();
+        }
+    }
+
+    // 7. Жами суммани янгилаш
+    function updateTotal(amount) {
+        totalDebt += amount;
+        document.getElementById('total-debt-top').innerText = totalDebt.toLocaleString() + " сум";
+    }
+</script>
+
+</body>
+</html>

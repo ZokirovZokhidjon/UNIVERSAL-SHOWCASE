@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELFIN - Тезкор Брон</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <style>
+        :root { --red: #ff4757; --green: #2ed573; }
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; min-height: 100vh; font-family: 'Segoe UI', sans-serif;
+            background: url('https://media-cdn.tripadvisor.com/media/photo-s/2c/01/33/e5/cliff-house-hotel.jpg') no-repeat center center fixed;
+            background-size: cover; color: white; text-align: center;
+        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 40, 0.7); z-index: 0; }
+        .content { position: relative; z-index: 1; padding: 20px; max-width: 1200px; margin: auto; }
+        h1 { font-size: clamp(2.5rem, 10vw, 4rem); margin-bottom: 5px; font-weight: 800; letter-spacing: 2px; }
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .room-btn { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px 20px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s ease; }
+        .status-dot { width: 15px; height: 15px; border-radius: 50%; margin: 0 auto 15px; }
+        .free .status-dot { background: var(--green); box-shadow: 0 0 15px var(--green); }
+        .free .status-txt { color: var(--green); font-weight: bold; }
+        .busy .status-dot { background: var(--red); box-shadow: 0 0 15px var(--red); }
+        .busy .status-txt { color: var(--red); font-weight: bold; }
+        .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .btn { padding: 15px 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.6); color: white; text-decoration: none; font-weight: 600; }
+        @media (min-width: 1024px) { .status-grid { grid-template-columns: repeat(5, 1fr); } }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content">
+        <h1>DELFIN SAUNA</h1>
+        <div id="status-container" class="status-grid"></div>
+        <div class="nav">
+            <a href="menu.html" class="btn">ТАОМЛАР МЕНЮСИ</a>
+            <a href="massage.html" class="btn">Мануал терапия</a>
+            <a href="admin.html" class="btn">ШАХСИЙ КАБИНЕТ</a>
+        </div>
+    </div>
+
+    <script>
+        // БУ ҚИСМГА ТЕГМАНГ - БУ КАРТОЧКАЛАР УЧУН!
+        const firebaseConfig = {
+            apiKey: "AIzaSyABO4zuo6GnSNWld4y0H91VI1QSgQewtRU",
+            databaseURL: "https://adminsaunadelfin-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        db.ref('rooms/').on('value', (snapshot) => {
+            const currentData = snapshot.val();
+            const container = document.getElementById('status-container');
+            container.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const id = 's' + i;
+                const room = (currentData && currentData[id]) ? currentData[id] : { name: i + '-Сауна', status: 'БЎШ' };
+                const sClass = (room.status === 'БАНД') ? 'busy' : 'free';
+                container.innerHTML += `
+                    <div class="room-btn ${sClass}" onclick="handleRoomClick(${i}, '${room.status}')">
+                        <div class="status-dot"></div>
+                        <div style="font-size: 1.1rem; margin-bottom: 8px;">${room.name}</div>
+                        <div class="status-txt">${room.status}</div>
+                    </div>`;
+            }
+        });
+
+        function handleRoomClick(num, status) {
+            if (status === 'БАНД') { alert("Бу сауна банд!"); } 
+            else { window.location.href = "zakazsauna.html?sauna=" + num; }
+        }
+    </script>
+</body>
+</html>
