@@ -1,284 +1,214 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ал-Машриқ - Миллий Таомлар</title>
+    <title>Universal Portfolio - Демо Сайтлар Галереяси</title>
     <style>
-        * {
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000c1d;
+            color: white;
+            overflow-x: hidden;
         }
 
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: #ffffff;
-        }
-
-        /* НАВИГАЦИЯ ВА DROPDOWN */
-        .navbar {
+        /* Орқа фонд */
+        .background-container {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-bottom: 3px solid #0097e6;
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: bold;
-            color: #2c3e50;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links li { position: relative; }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2f3640;
-            font-weight: 600;
-            transition: 0.3s;
-            padding: 10px 0;
-        }
-
-        .nav-links a:hover { color: #e67e22; }
-
-        /* DROPDOWN МЕНЮ */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
             left: 0;
-            background: #fff;
-            min-width: 200px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            padding: 10px 0;
-            list-style: none;
-            border: 1px solid #f1f1f1;
-        }
-
-        .nav-links li:hover .dropdown-menu {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .dropdown-menu li a {
-            padding: 10px 20px;
-            display: block;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .dropdown-menu li a:hover {
-            background: #f8f9fa;
-            color: #0097e6;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* HERO SECTION */
-        .hero {
-            height: 80vh;
             width: 100%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            height: 100%;
+            z-index: -2;
         }
 
-        .hero-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* Зиёратгоҳ ёки Чойхона расми */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6)), 
-             url('bankoboev.ru_karavan_s_turistami_po_morskomu_beregu.jpg'); 
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
+        .background-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(4px) brightness(0.4);
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .ocean-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 40, 80, 0.3) 0%, rgba(0, 10, 30, 0.7) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
-            color: #2c3e50;
+        header h1 {
+            font-size: 3rem;
             margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
-        /* ТАОМНОМА ГРИД */
-        .section { padding: 80px 10%; background: #ffffff; }
-
-        .section-title {
-            font-size: 36px;
-            margin-bottom: 60px;
-            text-align: center;
-            color: #2c3e50;
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
         }
 
-        .grid {
+        /* Сетка созламалари */
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            margin-bottom: 50px;
         }
 
-        .card {
-            background: #fff;
-            border-radius: 15px;
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            border: 1px solid #eee;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-
-        .card-img { width: 100%; height: 230px; object-fit: cover; }
-
-        .card-body { padding: 25px; text-align: center; }
-
-        .price { font-size: 22px; color: #27ae60; font-weight: bold; margin: 15px 0; }
-
-        .btn-pay {
-            display: block;
-            background: #00b9ff;
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
+        .project-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d4ff;
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
         }
 
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            color: #00d4ff;
+        }
+
+        .project-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        footer {
+            padding: 40px 0;
+            opacity: 0.6;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">АЛ-МАШРИҚ</div>
-        <a href="#home" class="logo">
-    <img src="carvon.jpg" alt="Ал-Машрик"
-     style="border-radius: 50%; height: 50px;">
-</a>
-        <ul class="nav-links">
-            <li><a href="#home">Бош саҳифа</a></li>
-            <li>
-                <a href="#menu">Таомнома ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#osh">Миллий Ош</a></li>
-                    <li><a href="#kabob">Қозон Кабоб</a></li>
-                    <li><a href="#lagmon">Лағмонлар</a></li>
-                    <li><a href="#shashlik">Шашликлар</a></li>
-                    <li><a href="#ichimlik">Ичимликлар</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Биз ҳақимизда</a></li>
-            <li><a href="contact.html">Алоқа</a></li>
-        </ul>
-    </nav>
-
-    <div class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1>АЛ-МАШРИҚ</h1>
-            <p>Юртингиз меҳмоннавозлиги чорлайди</p>
-        </div>
+    <div class="background-container">
+        <img src="fon.jpg" alt="Background">
     </div>
 
-    <section class="section" id="menu">
-        <h2 class="section-title">Бизнинг Таомнома</h2>
-        <div class="grid">
+    <div class="ocean-overlay"></div>
+
+    <div class="container">
+        <header>
+            <h1>UNIVERSAL SHOWCASE</h1>
+            <p>Тайёр веб-сайтлар ва демо лойиҳалар тўплами</p>
+        </header>
+
+        <div class="projects-grid">
             
-            <div class="card" id="osh">
-                <img src="osh.jpg" class="card-img" alt="Ош">
-                <div class="card-body">
-                    <h3>Зигир ёғли Ош</h3>
-                    <p>Тансиқ гўшт ва сархил масаллиқлардан шоҳона ош.</p>
-                    <div class="price">40 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/ticher/index.html', '_blank')">
+                <img src="ticher.jpg" alt="Ticher">
+                <div class="project-info">
+                    <h3>Устозлар</h3>
+                    <p>Ўқитувчи ва мураббийлар учун махсус портфолио тизими.</p>
                 </div>
             </div>
 
-            <div class="card" id="kabob">
-                <img src="qozonkabob.jpg" class="card-img" alt="Қозон кабоб">
-                <div class="card-body">
-                    <h3>Қозон кабоб</h3>
-                    <p>Махсус зираворлар билан димланган юмшоқ гўшт.</p>
-                    <div class="price">50 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/turizm/index.html', '_blank')">
+                <img src="turizm2.jpg" alt="Turizm">
+                <div class="project-info">
+                    <h3>Туризм ва Саёҳат</h3>
+                    <p>Дубай, Туркия ва Европа бўйлаб саёҳатлар демоси.</p>
                 </div>
             </div>
 
-            <div class="card" id="lagmon">
-                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500" class="card-img" alt="Лағмон">
-                <div class="card-body">
-                    <h3>Махсус Лағмон</h3>
-                    <p>Қўлда чўзилган хамир ва янги сабзавотлар.</p>
-                    <div class="price">35 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/umra/index.html', '_blank')">
+                <img src="umra.jpg" alt="Umra">
+                <div class="project-info">
+                    <h3>Умра Зиёрати</h3>
+                    <p>Муборак сафарни ташкил қилиш хизматлари учун сайт.</p>
                 </div>
             </div>
 
-            <div class="card" id="shashlik">
-                <img src="kabob.jpg" class="card-img" alt="Шашлик">
-                <div class="card-body">
-                    <h3>Қийма Шашлик</h3>
-                    <p>Оловда пишган мазали ва сершарбат шашлик.</p>
-                    <div class="price">15 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/kafe/index.html', '_blank')">
+                <img src="kafe.jpg" alt="Kafe">
+                <div class="project-info">
+                    <h3>Кафе ва Ресторан</h3>
+                    <p>Таомлар менюси ва онлайн буюртма бериш тизими.</p>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="tansomsa.jpg" class="card-img" alt="Сомса">
-                <div class="card-body">
-                    <h3>Тандир Сомса</h3>
-                    <p>Иссиққина, варақли ва гўштли сомса.</p>
-                    <div class="price">10 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/server/index.html', '_blank')">
+                <img src="dr.webp" alt="Tib">
+                <div class="project-info">
+                    <h3>Медицина клиникаси</h3>
+                    <p>Замонавий услубда даволаниш.</p>
+                </div>
+            </div>
+             <div class="project-card" onclick="window.open('projects/zufunun/index.html', '_blank')">
+                <img src="tib.jpg" alt="Tib">
+                <div class="project-info">
+                    <h3>Халқ табобати</h3>
+                    <p>Халқ табобати олами ва шифобахш гиёҳлар.</p>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500" class="card-img" alt="Шўрва">
-                <div class="card-body">
-                    <h3>Махсус Шўрва</h3>
-                    <p>Тўйимли ва шифобахш миллий шўрва.</p>
-                    <div class="price">30 000 сўм</div>
-                    <a href="#" class="btn-pay">Буюртма бериш</a>
+            <div class="project-card" onclick="window.open('projects/sauna/index.html', '_blank')">
+                <img src="un2.jpg" alt="Sauna">
+                <div class="project-info">
+                    <h3>Сауна хизматлари</h3>
+                    <p>Дам олиш масканлари учун махсус веб-саҳифа.</p>
                 </div>
             </div>
 
+            <div class="project-card" onclick="window.open('projects/almashriq/index.html', '_blank')">
+                <img src="bankoboev.ru_karavan_s_turistami_po_morskomu_beregu.jpg" alt="Al-mashriq">
+                <div class="project-info">
+                    <h3>Al-Mashriq</h3>
+                    <p>Ошхоналар ва миллий таомлар учун махсус сайт.</p>
+                </div>
             </div>
-    </section>
+
+        </div>
+
+        <footer>
+            &copy; 2026 Universal Showcase. Барча ҳуқуқлар ҳимояланган.
+        </footer>
+    </div>
 
 </body>
 </html>
