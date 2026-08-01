@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ал-Машриқ - Асосий Саҳифа</title>
+    <style>
+        /* УМУМИЙ СТИЛЛАР */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body { background-color: #ffffff; color: #333; }
+
+        /* НАВИГАЦИЯ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #0097e6;
+        }
+
+        .logo { font-size: 26px; font-weight: 800; color: #2c3e50; letter-spacing: 2px; }
+
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: #e67e22; }
+
+        /* HERO SECTION (ОҚИМТИР ВА ШИКАСТА ФОН) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Ўзбекистон миллий услубидаги чойхона ёки манзара расми */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8)), 
+                              url('bankoboev.ru_karavan_s_turistami_po_morskomu_beregu.jpg'); 
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px); /* Енгил хиралик */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 50px 80px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #d35400;
+            font-weight: 500;
+        }
+
+        /* АЛОҚА БЎЛИМИ */
+        .section { padding: 100px 10%; text-align: center; }
+
+        .section-title { font-size: 32px; margin-bottom: 40px; color: #2c3e50; }
+
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #f1f1f1;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            background: #fdfdfd;
+            font-size: 16px;
+        }
+
+        .btn-send {
+            width: 100%;
+            padding: 15px;
+            background: #0097e6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover { background: #007bbd; transform: translateY(-2px); }
+
+        .map-container {
+            margin-top: 50px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: #f9f9f9;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">АЛ-МАШРИҚ</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Бош саҳифа</a></li>
+            <li><a href="#contact">Алоқа</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>АЛ-МАШРИҚ</h1>
+            <p>Юртингиз меҳмоннавозлиги чорлайди</p>
+        </div>
+    </div>
+
+    <section class="section" id="contact">
+        <h2 class="section-title">Биз билан боғланиш</h2>
+        
+        <div class="contact-box">
+            <input type="text" class="form-input" placeholder="Исмингиз ва фамилиянгиз">
+            <input type="tel" class="form-input" placeholder="Телефон рақамингиз">
+            <textarea class="form-input" rows="5" placeholder="Хабарингиз ёки таклифингиз..."></textarea>
+            <button class="btn-send">ЮБОРИШ</button>
+        </div>
+
+        <div class="map-container">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2380.0262572803467!2d71.58829487584781!3d40.99676807135215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb4a14adee7337%3A0xa180e695fdc53201!2z0KHRgtC-0LvQvtCy0LDRjyDCq9CQ0Lst0JzQsNGI0YDQuNC6wrs!5e1!3m2!1sru!2s!4v1775799989186!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 "Ал-Машриқ". Барча ҳуқуқлар ҳимояланган.</p>
+    </footer>
+
+</body>
+</html>

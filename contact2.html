@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ал-Машриқ - Алоқа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Навигация (Бош саҳифага қайтиш учун) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px 0;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 15px;
+        }
+
+        /* Мурожаат карточкаси */
+        .contact-card {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 60px;
+        }
+
+        .contact-card h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+
+        .contact-card input, .contact-card textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .contact-card input:focus, .contact-card textarea:focus {
+            border-color: #ff9f43;
+        }
+
+        .send-btn {
+            width: 100%;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .send-btn:hover {
+            background: #ff9f43;
+        }
+
+        #status-msg {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html">← Бош саҳифа</a>
+</nav>
+
+<div class="contact-card">
+    <h2>Мурожаат йўллаш</h2>
+    <form id="tg-form">
+        <input type="text" id="name" placeholder="Исмингиз" required>
+        <textarea id="message" rows="4" placeholder="Шикоят, таклиф ёки фикрингиз..." required></textarea>
+        <button type="submit" class="send-btn">Ботга юбориш</button>
+    </form>
+    <div id="status-msg"></div>
+</div>
+
+<script>
+    const botToken = "ТЕГ_TOKEN"; // Бот токенини шу ерга қўйинг
+    const chatId = "ТЕГ_CHAT_ID"; // Чати ID ни шу ерга қўйинг
+
+    document.getElementById('tg-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const message = document.getElementById('message').value;
+        const status = document.getElementById('status-msg');
+
+        const fullMessage = `📩 Янги мурожаат:\n👤 Исм: ${name}\n💬 Хабар: ${message}`;
+
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(fullMessage)}`;
+
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    status.style.color = "green";
+                    status.innerText = "Хабарингиз юборилди! Раҳмат.";
+                    document.getElementById('tg-form').reset();
+                } else {
+                    status.style.color = "red";
+                    status.innerText = "Хатолик юз берди. Қайта уриниб кўринг.";
+                }
+            })
+            .catch(error => {
+                status.style.color = "red";
+                status.innerText = "Интернет билан муаммо!";
+            });
+    });
+</script>
+
+</body>
+</html>
