@@ -3,212 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Portfolio - Демо Сайтлар Галереяси</title>
+    <title>Universalportal - Асосий Саҳифа</title>
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000c1d;
-            color: white;
-            overflow-x: hidden;
+        /* GOOGLE TRANSLATE НИ ЯШИРИШ СТИЛЛАРИ */
+        #google_translate_element, 
+        .goog-te-banner-frame, 
+        .skiptranslate,
+        .goog-te-spinner-pos {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+            position: static !important;
+        }
+        .goog-te-gadget {
+            height: 0 !important;
+            overflow: hidden !important;
         }
 
-        /* Орқа фонд */
-        .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Biocyte Стилдаги Металл/Футуристик Капсула Тугмалар */
+        .biocyte-pill {
+            background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
+            color: #0f172a;
+            border: 2px solid #64748b;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .biocyte-pill:hover, .biocyte-pill.active {
+            background: linear-gradient(180deg, #ffffff 0%, #38bdf8 50%, #0284c7 100%);
+            color: #ffffff;
+            border-color: #38bdf8;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 1), 0 0 20px rgba(56, 189, 248, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Меню ёнидаги орбитал нуқтачалар */
+        .node-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 3px solid #94a3b8;
+            box-shadow: 0 0 10px rgba(148, 163, 184, 0.8);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .biocyte-pill:hover + .node-circle,
+        .biocyte-pill.active + .node-circle {
+            background: #38bdf8;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px #38bdf8;
+        }
+
+        /* Меню қаторларининг эгилиш анимацияси */
+        .curved-row {
+            transition: transform 0.4s ease-in-out;
+        }
+
+        /* Сарлавҳадаги Металл / Силвер Текстура Эффекти */
+        .metallic-text {
+            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 50%, #475569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+
+        /* Видео контейнер */
+        .video-container {
+            position: relative;
             width: 100%;
-            height: 100%;
-            z-index: -2;
+            padding-bottom: 56.25%;
+            height: 0;
         }
-
-        .background-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(4px) brightness(0.4);
-        }
-
-        .ocean-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(0, 40, 80, 0.3) 0%, rgba(0, 10, 30, 0.7) 100%);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #00d4ff;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin-bottom: 50px;
-            opacity: 0.9;
-        }
-
-        /* Сетка созламалари */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-15px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #00d4ff;
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .project-info {
-            padding: 20px;
-            flex-grow: 1;
-        }
-
-        .project-info h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.4rem;
-            color: #00d4ff;
-        }
-
-        .project-info p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #ccc;
-            line-height: 1.4;
-        }
-
-        footer {
-            padding: 40px 0;
-            opacity: 0.6;
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 0.75rem 0.75rem 0 0;
         }
     </style>
 </head>
-<body>
+<body class="bg-black text-slate-100 font-sans min-h-screen selection:bg-sky-500 selection:text-black flex flex-col overflow-x-hidden">
 
-    <div class="background-container">
-        <img src="fon.jpg" alt="Background">
+<!-- ЯШИРИН GOOGLE TRANSLATE КОМПОНЕНТИ -->
+<div id="google_translate_element"></div>
+
+<!-- ТЕСТ РЕЖИМИ БАННЕРИ -->
+<div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 text-sky-400 py-2 text-center text-xs sm:text-sm font-semibold tracking-widest uppercase">
+    <marquee behavior="scroll" direction="left" scrollamount="8">
+        📢 Ушбу сайт тест режимида ишламоқда &nbsp;&nbsp;&bull;&nbsp;&nbsp; UNIVERSALPORTAL SYSTEM ONLINE
+    </marquee>
+</div>
+
+<!-- ЮҚОРИ БАР (Тиллар ва Админ) -->
+<div class="max-w-7xl w-full mx-auto px-4 pt-4 flex justify-between items-center z-50">
+    <div class="lang-buttons notranslate flex gap-2">
+        <button class="lang-btn text-xs font-bold px-3 py-1 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition" id="lang-uz" onclick="setLanguage('uz')">Ўзб</button>
+        <button class="lang-btn text-xs font-bold px-3 py-1 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition" id="lang-ru" onclick="setLanguage('ru')">Рус</button>
+        <button class="lang-btn text-xs font-bold px-3 py-1 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:text-white transition" id="lang-en" onclick="setLanguage('en')">Eng</button>
     </div>
+    <a class="admin-icon notranslate text-2xl text-slate-400 hover:text-sky-400 transition" href="admin.html" title="Шахсий кабинет">
+        <i class="fas fa-user-circle"></i>
+    </a>
+</div>
 
-    <div class="ocean-overlay"></div>
-
-    <div class="container">
-        <header>
-            <h1>UNIVERSAL SHOWCASE</h1>
-            <p>Тайёр веб-сайтлар ва демо лойиҳалар тўплами</p>
-        </header>
-
-        <div class="projects-grid">
-            
-            <div class="project-card" onclick="window.open('projects/ticher/index.html', '_blank')">
-                <img src="ticher.jpg" alt="Ticher">
-                <div class="project-info">
-                    <h3>Устозлар</h3>
-                    <p>Ўқитувчи ва мураббийлар учун махсус портфолио тизими.</p>
+<!-- АСОСИЙ HERO БОБИ (Чапда Брендинг, Ўнгда Эгилган Меню) -->
+<header class="relative max-w-7xl w-full mx-auto px-4 py-8 lg:py-12 border-b border-slate-800/80">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- ЧАП ТОМОН: БРЕНДИНГ (UNIVERSALPORTAL) -->
+        <div class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
+            <div class="flex items-center space-x-4">
+                <img src="logo1.jpg" alt="logo" class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg border-2 border-slate-600 shadow-2xl object-cover" onerror="this.style.display='none'">
+                <div>
+                    <h1 class="notranslate text-4xl sm:text-6xl font-black tracking-tighter metallic-text uppercase leading-none">
+                        UNIVERSALPORTAL
+                    </h1>
+                    <p class="notranslate text-xs sm:text-sm tracking-[0.3em] text-slate-400 uppercase font-light mt-1 border-t border-slate-800 pt-1">
+                        INFORMATION & DIGITAL MEDIA
+                    </p>
                 </div>
             </div>
 
-            <div class="project-card" onclick="window.open('projects/turizm/index.html', '_blank')">
-                <img src="turizm2.jpg" alt="Turizm">
-                <div class="project-info">
-                    <h3>Туризм ва Саёҳат</h3>
-                    <p>Дубай, Туркия ва Европа бўйлаб саёҳатлар демоси.</p>
-                </div>
+            <!-- КИДИРУВ ПАНЕЛИ -->
+            <div class="w-full max-w-lg mt-6 flex items-center bg-slate-950/90 border-2 border-slate-800 rounded-full p-1.5 shadow-2xl focus-within:border-sky-500 transition">
+                <input type="text" id="searchInput" placeholder="Сайтдан қидириш..." class="w-full bg-transparent px-4 py-2 text-sm text-slate-200 outline-none placeholder-slate-500">
+                <button onclick="searchPosts()" class="px-6 py-2 bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-black uppercase rounded-full shadow-lg transition">
+                    Қидириш
+                </button>
             </div>
-
-            <div class="project-card" onclick="window.open('projects/umra/index.html', '_blank')">
-                <img src="umra.jpg" alt="Umra">
-                <div class="project-info">
-                    <h3>Умра Зиёрати</h3>
-                    <p>Муборак сафарни ташкил қилиш хизматлари учун сайт.</p>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="window.open('projects/kafe/index.html', '_blank')">
-                <img src="kafe.jpg" alt="Kafe">
-                <div class="project-info">
-                    <h3>Кафе ва Ресторан</h3>
-                    <p>Таомлар менюси ва онлайн буюртма бериш тизими.</p>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="window.open('projects/server/index.html', '_blank')">
-                <img src="dr.webp" alt="Tib">
-                <div class="project-info">
-                    <h3>Медицина клиникаси</h3>
-                    <p>Замонавий услубда даволаниш.</p>
-                </div>
-            </div>
-             <div class="project-card" onclick="window.open('projects/zufunun/index.html', '_blank')">
-                <img src="tib.jpg" alt="Tib">
-                <div class="project-info">
-                    <h3>Халқ табобати</h3>
-                    <p>Халқ табобати олами ва шифобахш гиёҳлар.</p>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="window.open('projects/sauna/index.html', '_blank')">
-                <img src="un2.jpg" alt="Sauna">
-                <div class="project-info">
-                    <h3>Сауна хизматлари</h3>
-                    <p>Дам олиш масканлари учун махсус веб-саҳифа.</p>
-                </div>
-            </div>
-
-            <div class="project-card" onclick="window.open('projects/almashriq/index.html', '_blank')">
-                <img src="bankoboev.ru_karavan_s_turistami_po_morskomu_beregu.jpg" alt="Al-mashriq">
-                <div class="project-info">
-                    <h3>Al-Mashriq</h3>
-                    <p>Ошхоналар ва миллий таомлар учун махсус сайт.</p>
-                </div>
-            </div>
-
         </div>
 
-        <footer>
-            &copy; 2026 Universal Showcase. Барча ҳуқуқлар ҳимояланган.
-        </footer>
-    </div>
+        <!-- ЎНГ ТОМОН: ЧИЗИҚ БЎЙЛАБ ЭГИЛГАН ВЕРТИКАЛ МЕНЮ -->
+        <div class="lg:col-span-6 relative flex justify-center lg:justify-end pr-0 lg:pr-6">
+            
+            <!-- Орқа фондаги эгилган SVG чизиқ -->
+            <svg class="hidden sm:block absolute right-[10px] top-2 h-[290px] w-48 pointer-events-none stroke-slate-700/60" viewBox="0 0 200 300" fill="none">
+                <path d="M 185 15 Q 85 150 185 285" stroke-width="3" stroke-dasharray="6 4" />
+            </svg>
 
+            <!-- Вертикал Меню Капсулалари (Ҳар бири X-ўқи бўйлаб эгилган) -->
+            <div class="relative z-10 flex flex-col space-y-3 w-full max-w-xs items-end">
+                
+                <!-- 1-қатор (Юқорида - ўнг томонда) -->
+                <div class="curved-row flex items-center justify-end space-x-3 w-full sm:-translate-x-1">
+                    <button class="menu-btn biocyte-pill active w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right" onclick="filterCat('all', this)">Ҳаммаси</button>
+                    <div class="node-circle hidden sm:block"></div>
+                </div>
+
+                <!-- 2-қатор (Бироз ичкарига/чапга силжиган) -->
+                <div class="curved-row flex items-center justify-end space-x-3 w-full sm:-translate-x-6">
+                    <button class="menu-btn biocyte-pill w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right" onclick="filterCat('Янгиликлар', this)">Янгиликлар</button>
+                    <div class="node-circle hidden sm:block"></div>
+                </div>
+
+                <!-- 3-қатор (Марказий эгилиш - энг ичкарида) -->
+                <div class="curved-row flex items-center justify-end space-x-3 w-full sm:-translate-x-10">
+                    <button class="menu-btn biocyte-pill w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right" onclick="filterCat('Кинотеатр', this)">Кинотеатр</button>
+                    <div class="node-circle hidden sm:block"></div>
+                </div>
+
+                <!-- 4-қатор (Марказий эгилиш - энг ичкарида) -->
+                <div class="curved-row flex items-center justify-end space-x-3 w-full sm:-translate-x-10">
+                    <button class="menu-btn biocyte-pill w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right" onclick="filterCat('Клиплар', this)">Клиплар</button>
+                    <div class="node-circle hidden sm:block"></div>
+                </div>
+
+                <!-- 5-қатор (Ортга/ўнгга қайтаётган нуқта) -->
+                <div class="curved-row flex items-center justify-end space-x-3 w-full sm:-translate-x-6">
+                    <a href="gallery.html" class="menu-btn biocyte-pill w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right notranslate flex items-center justify-end gap-2">
+                        <i class="fas fa-camera"></i> Галерея
+                    </a>
+                    <div class="node-circle hidden sm:block"></div>
+                </div>
+
+                <!-- 6-қатор (Пастки нуқта - ўнг томонда) -->
+                <div class="curved-row relative w-full sm:-translate-x-1">
+                    <div class="flex items-center justify-end space-x-3 w-full">
+                        <button class="menu-btn biocyte-pill w-full py-2.5 px-6 rounded-full text-xs font-black tracking-widest uppercase text-right flex items-center justify-between" id="mainDropBtn" onclick="toggleDropdown(event)">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                            <span id="dropBtnText">Бошқалар</span>
+                        </button>
+                        <div class="node-circle hidden sm:block"></div>
+                    </div>
+                    
+                    <div id="dropdownContent" class="hidden absolute right-6 mt-2 w-64 bg-slate-900 border-2 border-slate-700 rounded-2xl shadow-2xl overflow-hidden z-50">
+                        <button class="w-full text-right px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-sky-600 hover:text-white border-b border-slate-800 transition" onclick="filterCat('Tabobat', this)">Табобат</button>
+                        <button class="w-full text-right px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-sky-600 hover:text-white border-b border-slate-800 transition" onclick="filterCat('Ҳикоялар', this)">Ҳикоялар</button>
+                        <button class="w-full text-right px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-sky-600 hover:text-white border-b border-slate-800 transition" onclick="filterCat('Хангомалар', this)">Хангомалар</button>
+                        <button class="w-full text-right px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-sky-600 hover:text-white border-b border-slate-800 transition" onclick="filterCat('Кулинария', this)">Кулинария</button>
+                        <button class="w-full text-right px-4 py-2.5 text-xs font-bold text-slate-300 hover:bg-sky-600 hover:text-white border-b border-slate-800 transition" onclick="filterCat('Шеърият', this)">Шеърият</button>
+                        
+                        <a href="gallery.html" class="block text-right px-4 py-2.5 text-xs font-bold text-emerald-400 hover:bg-emerald-600 hover:text-white border-b border-slate-800 transition notranslate">
+                            📸 Наманган Манзаралари
+                        </a>
+                        <a href="tv.html" class="block text-right px-4 py-2.5 text-xs font-bold text-amber-400 hover:bg-amber-600 hover:text-white transition notranslate">
+                            📺 ТВ Каналлар
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<!-- РЕКЛАМА БЛОКИ -->
+<div id="adBlock" class="max-w-7xl mx-auto my-4 px-4 hidden text-center">
+    <a id="adLink" href="#" target="_blank" class="inline-block overflow-hidden rounded-2xl border border-slate-800 shadow-2xl">
+        <img id="adImg" src="" alt="Реклама" class="max-h-36 w-full object-contain mx-auto">
+    </a>
+</div>
+
+<!-- АСОСИЙ КОНТЕНТ (КАРТОЧКАЛАР СЕТКАСИ) -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="newsWrapper">
+        <div class="col-span-full text-center text-slate-500 py-12">Юкланмоқда...</div>
+    </div>
+</main>
+
+<!-- GOOGLE TRANSLATE ENGINE СКРИПТИ -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'uz',
+            includedLanguages: 'uz,ru,en',
+            autoDisplay: false
+        }, 'google_translate_element');
+
+        const savedLang = localStorage.getItem("app_lang") || "uz";
+        updateLangButtons(savedLang);
+    }
+
+    function setLanguage(lang) {
+        localStorage.setItem("app_lang", lang);
+
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+
+        if (lang !== 'uz') {
+            document.cookie = "googtrans=/uz/" + lang + "; path=/;";
+            document.cookie = "googtrans=/uz/" + lang + "; domain=" + window.location.hostname + "; path=/;";
+        }
+
+        location.reload();
+    }
+
+    function updateLangButtons(lang) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('!bg-sky-600', '!border-sky-500', '!text-white'));
+        const activeBtn = document.getElementById(`lang-${lang}`);
+        if (activeBtn) activeBtn.classList.add('!bg-sky-600', '!border-sky-500', '!text-white');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- FIREBASE ВА МАНТИҚ СКРИПТЛАРИ -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue, update, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCO079n6tlKKTXi1LjtSB1t0ddsxDMQUW4",
+        authDomain: "universal-portal-108b7.firebaseapp.com",
+        databaseURL: "https://universal-portal-108b7-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "universal-portal-108b7",
+        storageBucket: "universal-portal-108b7.appspot.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let allPosts = {};
+    let currentCategory = 'all';
+    let currentSearchTerm = '';
+
+    // ТАШРИФЛАРНИ ҲИСОБЛАШ
+    async function trackVisitor() {
+        if (sessionStorage.getItem("visited")) return;
+        sessionStorage.setItem("visited", "true");
+
+        const today = new Date().toISOString().split('T')[0];
+        const updates = {};
+        
+        updates[`analytics/daily_views/${today}`] = increment(1);
+
+        try {
+            const response = await fetch('https://ipapi.co/json/');
+            const geoData = await response.json();
+            const country = geoData.country_name || "Номаълум";
+
+            updates[`analytics/countries/${country}`] = increment(1);
+        } catch (error) {
+            updates[`analytics/countries/Номаълум`] = increment(1);
+        }
+
+        update(ref(db), updates);
+    }
+
+    trackVisitor();
+
+    // ДРОПДАВННИ ОЧИШ ВА ЁПИШ
+    window.toggleDropdown = function(event) {
+        event.stopPropagation();
+        document.getElementById("dropdownContent").classList.toggle("hidden");
+    }
+
+    window.addEventListener('click', function(event) {
+        const dropdown = document.getElementById("dropdownContent");
+        if (dropdown && !dropdown.classList.contains('hidden')) {
+            if (!event.target.closest('#mainDropBtn')) {
+                dropdown.classList.add('hidden');
+            }
+        }
+    });
+
+    // Рекламани юклаш
+    onValue(ref(db, 'ads'), (s) => {
+        const ad = s.val();
+        if(ad && ad.img) {
+            document.getElementById('adBlock').classList.remove('hidden');
+            document.getElementById('adImg').src = ad.img;
+            document.getElementById('adLink').href = ad.link || "#";
+        }
+    });
+
+    // Мақолаларни олиш
+    onValue(ref(db, 'all_posts'), (snapshot) => {
+        allPosts = snapshot.val() || {};
+        renderPosts('all');
+    });
+
+    // Категория бўйича филтрлаш
+    window.filterCat = (category, btn) => {
+        document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const mainBtn = document.getElementById('mainDropBtn');
+        const hiddenCats = ['Tabobat', 'Ҳикоялар', 'Хангомалар', 'Кулинария', 'Шеърият'];
+        
+        if(hiddenCats.includes(category)) {
+            mainBtn.classList.add('active');
+        } else {
+            mainBtn.classList.remove('active');
+        }
+        
+        currentCategory = category;
+        renderPosts(category, currentSearchTerm);
+        document.getElementById("dropdownContent").classList.add("hidden");
+    };
+
+    // Қидириш
+    window.searchPosts = () => {
+        currentSearchTerm = document.getElementById('searchInput').value.toLowerCase();
+        renderPosts(currentCategory, currentSearchTerm);
+    };
+
+    // Постларни карточкаларга чиқариш
+    function renderPosts(category, searchTerm = "") {
+        const wrapper = document.getElementById('newsWrapper');
+        wrapper.innerHTML = "";
+        
+        const keys = Object.keys(allPosts).reverse();
+        let found = 0;
+
+        keys.forEach(id => {
+            const p = allPosts[id];
+            
+            const matchCat = (category === 'all' || p.category === category);
+            const matchSearch = p.title.toLowerCase().includes(searchTerm);
+
+            if (matchCat && matchSearch) {
+                found++;
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-sky-500/50 hover:-translate-y-1 transition duration-300 flex flex-col justify-between';
+                
+                let mediaHtml = "";
+                if (p.image) {
+                    mediaHtml = `<img src="${p.image}" class="w-full h-48 object-cover bg-slate-800" alt="${p.title}" onerror="this.style.display='none'">`;
+                } else if (p.video) {
+                    mediaHtml = `<div class="video-container">${p.video}</div>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        ${mediaHtml}
+                        <div class="p-5">
+                            ${p.category ? `<span class="inline-block text-[10px] font-extrabold uppercase bg-sky-600/20 text-sky-400 border border-sky-500/30 px-2.5 py-1 rounded-md mb-3">${p.category}</span>` : ''}
+                            <h2 class="text-base sm:text-lg font-bold text-slate-100 line-clamp-2 leading-snug mb-3">${p.title}</h2>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0">
+                        <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-800/80 pt-3 mb-3">
+                            <span><i class="far fa-clock text-sky-400 mr-1"></i> ${p.time || 'Яқинда'}</span>
+                            <span><i class="fas fa-eye text-sky-400 mr-1"></i> ${p.views || 0}</span>
+                        </div>
+                        <a href="post.html?id=${id}" class="block w-full text-center py-2 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white text-xs font-bold rounded-xl transition">
+                            Батафсил ўқиш...
+                        </a>
+                    </div>
+                `;
+                wrapper.appendChild(card);
+            }
+        });
+
+        if (found === 0) {
+            wrapper.innerHTML = `<p class="col-span-full text-center text-slate-400 py-12">Маълумот топилмади.</p>`;
+        }
+    }
+</script>
+<script type="module" src="bridge.js"></script>
 </body>
 </html>
